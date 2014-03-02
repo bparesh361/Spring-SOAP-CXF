@@ -1,0 +1,17 @@
+<GetTemperatureResponse xmlns="http://cms.fks.com/weather/schemas">
+	<TemperatureInfo city="houston" date="2014-01-01">
+		<max>45.54</max>
+		<min>12.34</min>
+		<avg>45.68</avg>
+	</TemperatureInfo>
+	<TemperatureInfo city="houston" date="2014-01-02">
+		<max>45.54</max>
+		<min>12.34</min>
+		<avg>45.68</avg>
+	</TemperatureInfo>
+	<TemperatureInfo city="houston" date="2014-01-03">
+		<max>45.54</max>
+		<min>12.34</min>
+		<avg>45.68</avg>
+	</TemperatureInfo>
+</GetTemperatureResponse>

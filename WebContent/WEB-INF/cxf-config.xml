@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:simple="http://cxf.apache.org/simple"
+	xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd http://cxf.apache.org/simple http://cxf.apache.org/schemas/simple.xsd
+http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<bean id="orderServiceImpl" class="com.test.OrderServiceImpl" />
+
+	<!-- Writing down contract last service using Apache CXF <import resource="classpath:META-INF/cxf/cxf-servlet.xml" 
+		/> <import resource="classpath:META-INF/cxf/cxf.xml" /> <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" 
+		/> <jaxws:endpoint implementor="#orderServiceImpl" address="/orderServiceImpl"> 
+		<jaxws:binding> <soap:soapBinding style="document" use="literal" version="1.1" 
+		/> </jaxws:binding> </jaxws:endpoint> -->
+
+	<!-- contact first mapping handler mapping -->
+	<bean
+		class="org.springframework.ws.server.endpoint.mapping.PayloadRootQNameEndpointMapping">
+		<property name="mappings">
+			<props>
+				<prop key="{http://com.fks.com/weather/schemas}GetTemperatureRequest">temperatureEndpoint</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="weatherService" class="com.test.WeatherServiceImpl" />
+
+	<bean id="temperatureEndpoint" class="com.test.vo.TemperatureDom4jEndpoint">
+		<property name="weatherService" ref="weatherService" />
+	</bean>
+
+	<bean id="temp"
+		class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+		<property name="schema" ref="schema" />
+		<property name="portTypeName" value="Weather" />
+		<property name="locationUri" value="/weatherservice/" />
+	</bean>
+	
+	<bean id="schema" class="org.springframework.xml.xsd.SimpleXsdSchema">
+    <property name="xsd" value="/WEB-INF/temperature.xsd"/>
+</bean>
+
+</beans>

@@ -1,0 +1,6 @@
+<GetTemperatureRequest xmlns="http://cms.fks.com/weather/schemas">
+	<city>Ahmedabad</city>
+	<date>2014-01-01</date>
+	<date>2014-01-02</date>
+	<date>2014-01-03</date>
+</GetTemperatureRequest>
